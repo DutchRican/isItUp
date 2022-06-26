@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Endpoint" representedClassName="Endpoint" syncable="YES" codeGenerationType="class">
+        <attribute name="expectedResponse" optional="YES" attributeType="String"/>
+        <attribute name="expectedStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isUp" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastUp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="requestType" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="headers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Header" inverseName="endpoint" inverseEntity="Header"/>
+    </entity>
+    <entity name="Header" representedClassName="Header" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="key_name" optional="YES" attributeType="String"/>
+        <attribute name="key_value" optional="YES" attributeType="String"/>
+        <relationship name="endpoint" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Endpoint" inverseName="headers" inverseEntity="Endpoint"/>
+    </entity>
+    <elements>
+        <element name="Endpoint" positionX="307.92578125" positionY="11.18359375" width="128" height="149"/>
+        <element name="Header" positionX="-54" positionY="18" width="128" height="14"/>
+    </elements>
+</model>
