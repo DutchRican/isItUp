@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var moc
     var body: some View {
         return VStack {
             HeaderView()
             Divider()
-            MainContentView().environment(\.managedObjectContext, moc)
+            MainContentView()
             Divider()
-            BottomRowView().environment(\.managedObjectContext, moc)
+            BottomRowView()
         }.frame(width: 400, height: 400)
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView().environment(\.managedObjectContext,
+                                   PersistenceController.preview.container.viewContext)
+    }
+}
