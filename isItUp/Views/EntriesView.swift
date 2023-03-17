@@ -33,6 +33,7 @@ struct EntriesView: View {
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "xmark")
+                        .foregroundColor(.red)
                 }
                 .padding(.trailing, 15)
             }
@@ -43,33 +44,38 @@ struct EntriesView: View {
                 VStack {
                     HStack {
                         Text("Target Url: ")
-                            .frame(width: 130, alignment: .leading)
+                            .frame(width: 135, alignment: .leading)
                         TextField("http://google.com", text: $url)
                             .textFieldStyle(.roundedBorder)
                             .focusable()
                             .focused($focusedField, equals: .urlField)
                     }
                     .padding(.horizontal)
-                    Picker("Request Method        ", selection: $requestType) { // very ugly spacing :(
+                    Picker(selection: $requestType, content: {
                         ForEach(self.requestTypes, id:\.self) { method in
                             Text("\(method)")
                         }
-                    }
+                    }, label: {
+                        Text("Request Method").frame(width: 135, alignment: .leading)
+                        
+                    })
                     .pickerStyle(.segmented)
                     .padding(.horizontal)
                     HStack {
                         Text("Expected Response")
-                            .frame(width: 130, alignment: .leading)
+                            .frame(width: 135, alignment: .leading)
                         TextField("Leave me empty if just the status code is enough", text:$expectedResponse)
                             .textFieldStyle(.roundedBorder)
                             .focused($focusedField, equals: .expectedResponseField)
                     }
                     .padding(.horizontal)
-                    Picker("Expected StatusCode", selection: $statusCode) {
+                    Picker(selection: $statusCode, content: {
                         ForEach(self.statusCodes, id:\.self) { code in
                             Text("\(code)")
                         }
-                    }
+                    }, label: {
+                        Text("Expected StatusCode").frame(width: 135, alignment: .leading)
+                    })
                     .pickerStyle(.segmented)
                     .padding(.horizontal)
                 }
@@ -194,5 +200,6 @@ struct EntriesView: View {
 struct EntriesView_Previews: PreviewProvider {
     static var previews: some View {
         EntriesView(selectedEndpoint: .constant(nil))
+            .environment(\.managedObjectContext,PersistenceController.preview.container.viewContext)
     }
 }
