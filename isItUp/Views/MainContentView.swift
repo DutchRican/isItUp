@@ -41,9 +41,9 @@ struct MainContentView: View {
                             Spacer()
                             Button(action: {
                                 onDelete(item: endpoint)
-                            }){ Image(systemName: "xmark")}
+                            }){ Image(systemName: "xmark") .foregroundColor(.red)}
                                 .cornerRadius(8)
-                                .foregroundColor(.red)
+                            
                         }
                         .onTapGesture {
                             self.selectedEntry = endpoint
@@ -70,5 +70,12 @@ struct MainContentView: View {
         } catch {
             print(error)
         }
+    }
+}
+
+struct MainContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainContentView().environment(\.managedObjectContext,
+                                       PersistenceController.preview.container.viewContext)
     }
 }
